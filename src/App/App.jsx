@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from '../Container/Container';
+// import AppResourcesManager from '../app-resources.manager';
+
 import './App.css';
 
-const apps = { angular: 'angular', angularjs: 'angularjs', vuejs: 'vuejs', react: 'react' };
+const apps = { angular: 'angular', angularjs: 'angularjs', vue: 'vue', react: 'react' };
 
 class App extends Component {
     get _hashArr() {
@@ -12,6 +14,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
+        // this.appResourcesManager = new AppResourcesManager();
 
         let hash = window.location.hash.substr(1);
 
@@ -22,7 +25,6 @@ class App extends Component {
         };
 
         this._analyzeLocation();
-        console.log(this.state);
     }
 
     componentWillMount() {
@@ -53,7 +55,6 @@ class App extends Component {
 
             if (app) {
                 this.setState({ errorData: {}, route: app });
-                console.log(this.state);
                 // this.appResourcesManager.currentApp = app;
             }
         });
@@ -103,7 +104,7 @@ class App extends Component {
                                         <div className="title nav-label">Angular</div>
                                     </a>
 
-                                    <a href={'/#/' + apps.vuejs} className={classSelected(apps.vuejs)}>
+                                    <a href={'/#/' + apps.vue} className={classSelected(apps.vue)}>
                                         <div className="title nav-label">VueJS</div>
                                     </a>
 
