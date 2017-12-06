@@ -12,7 +12,7 @@ const load = (state = {}, action) => {
             return Object.assign({}, state, {
                 loading: false,
                 error: false,
-                completed: true
+                completed: true,
             });
 
         case 'LOAD_FAILED':

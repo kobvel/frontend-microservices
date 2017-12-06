@@ -95,11 +95,6 @@ class App extends Component {
                         <div className="wrap-nav-container">
                             <nav id="wrap-navigation">
                                 <div id="wrap-portal-navigation">
-                                    <a href={'/#/' + apps.angularjs} className={classSelected(apps.angularjs)}>
-                                        <div className="dd__icon dd__icon-list-th-lg"></div>
-                                        <div className="title nav-label">AngularJS</div>
-                                    </a>
-
                                     <a href={'/#/' + apps.angular} className={classSelected(apps.angular)}>
                                         <div className="title nav-label">Angular</div>
                                     </a>
@@ -108,15 +103,15 @@ class App extends Component {
                                         <div className="title nav-label">VueJS</div>
                                     </a>
 
-                                    <a href={'/#/' + apps.react} className={classSelected(apps.react)}>
+                                    {/* <a href={'/#/' + apps.react} className={classSelected(apps.react)}>
                                         <div className="title nav-label">React</div>
-                                    </a>
+                                    </a> */}
 
                                 </div>
                             </nav>
                         </div>
                         <Child app={app} />
-                        {this.state.spinner && <h1>Spinner ....</h1>}
+                        {this.state.spinner && <div className="loader">Loading...</div>}
                     </div>}
             </div>
         );

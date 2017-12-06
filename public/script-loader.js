@@ -33,16 +33,19 @@
             } else {
                 $.getScript(remote + '/' + el.scriptName)
                     .done(function () {
-                        window[el.name] = true;
+                        // setTimeout to imitate request to the remote server
+                        setTimeout(() => {
+                            window[el.name] = true;
 
-                        window.store.dispatch({
-                            type: 'LOAD_FINISHED',
-                            name: el.name
-                        });
+                            window.store.dispatch({
+                                type: 'LOAD_FINISHED',
+                                name: el.name
+                            });
+                        }, 1000);
+
                     });
+
             }
-
-
         };
 
         document.registerElement(el.name + '-app', {
