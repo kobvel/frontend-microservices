@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from '../Container/Container';
-// import AppResourcesManager from '../app-resources.manager';
+import AppResourcesManager from '../app-resources.manager';
 
 import './App.css';
 
@@ -14,7 +14,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        // this.appResourcesManager = new AppResourcesManager();
+        this.appResourcesManager = new AppResourcesManager();
 
         let hash = window.location.hash.substr(1);
 
@@ -55,10 +55,10 @@ class App extends Component {
 
             if (app) {
                 this.setState({ errorData: {}, route: app });
-                // this.appResourcesManager.currentApp = app;
+                this.appResourcesManager.currentApp = app;
             }
         });
-        // this.appResourcesManager.currentApp = this.state.route;
+        this.appResourcesManager.currentApp = this.state.route;
     }
 
     componentWillUnmount() {

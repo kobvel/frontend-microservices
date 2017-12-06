@@ -2,11 +2,7 @@ export default class AppResourcesManager {
     selectedApp;
 
     constructor() {
-        this.init();
-    }
-
-    init() {
-        this.jsResources(window);
+        this.scriptResources(window);
         this.styleSheetResources();
     }
 
@@ -14,7 +10,7 @@ export default class AppResourcesManager {
         this.styles = [...document.getElementsByTagName('style')];
     }
 
-    jsResources(w) {
+    scriptResources(w) {
         const originalAdd = w.addEventListener;
         const self = this;
         w.listenersList = {};
@@ -24,9 +20,6 @@ export default class AppResourcesManager {
                 listener: arguments[1]
             };
             let app = !!self.selectedApp && self.selectedApp.length > 0 ? self.selectedApp : 'wrapper';
-
-            // To fix black magic bug with history
-            app = listener.type === 'popstate' ? 'wrapper' : app;
 
             if (w.listenersList[app]) {
                 w.listenersList[app].push(listener);
@@ -54,23 +47,19 @@ export default class AppResourcesManager {
         };
     }
 
-    _releaseResources() {
-        this._releaseJsResources();
-        this._releaseStyleSheetResources();
-    }
-
     _releaseStyleSheetResources() {
         const styles = document.getElementsByTagName('style');
-        let stylesArr = [...styles].filter(e => !e.classList.length && e.className !== 'walkme-to-remove');
+        let stylesArr = [...styles].filter(e => !e.classList.length);
 
+        console.log(stylesArr);
         stylesArr
             .concat(this.styles)
             .filter((style, index, array) => array.indexOf(style) === array.lastIndexOf(style))
-            .filter(e => !e.classList.length && e.className !== 'walkme-to-remove')
+            .filter(e => !e.classList.length)
             .forEach(node => node.parentNode && node.parentNode.removeChild(node));
     }
 
-    _releaseJsResources() {
+    _releaseScriptResources() {
         const app = this.selectedApp;
         const listenersList = window.listenersList[app];
         if (!app || !listenersList) {
@@ -84,7 +73,8 @@ export default class AppResourcesManager {
 
     set currentApp(value) {
         if (this.selectedApp && this.selectedApp !== value) {
-            this._releaseResources();
+            this._releaseScriptResources();
+            this._releaseStyleSheetResources();
         }
         this.selectedApp = value;
     }
