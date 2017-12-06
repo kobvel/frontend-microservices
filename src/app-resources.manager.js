@@ -3,11 +3,6 @@ export default class AppResourcesManager {
 
     constructor() {
         this.scriptResources(window);
-        this.styleSheetResources();
-    }
-
-    styleSheetResources() {
-        this.styles = [...document.getElementsByTagName('style')];
     }
 
     scriptResources(w) {
@@ -47,18 +42,6 @@ export default class AppResourcesManager {
         };
     }
 
-    _releaseStyleSheetResources() {
-        const styles = document.getElementsByTagName('style');
-        let stylesArr = [...styles].filter(e => !e.classList.length);
-
-        console.log(stylesArr);
-        stylesArr
-            .concat(this.styles)
-            .filter((style, index, array) => array.indexOf(style) === array.lastIndexOf(style))
-            .filter(e => !e.classList.length)
-            .forEach(node => node.parentNode && node.parentNode.removeChild(node));
-    }
-
     _releaseScriptResources() {
         const app = this.selectedApp;
         const listenersList = window.listenersList[app];
@@ -74,7 +57,6 @@ export default class AppResourcesManager {
     set currentApp(value) {
         if (this.selectedApp && this.selectedApp !== value) {
             this._releaseScriptResources();
-            this._releaseStyleSheetResources();
         }
         this.selectedApp = value;
     }
